@@ -37,14 +37,14 @@ jobs:
       #  run: msbuild -nologo -v:d -clp:ForceConsoleColor -m -p:Configuration=Release -p:Platform=x64
 
       - name: Publish Launcher
-        run: dotnet publish -nologo -c Release -r win10-x64 /p:Platform="Any CPU" /p:OptimizeUi="true" --self-contained true
+        run: dotnet publish -nologo -c Release /p:Platform="Any CPU" /p:OptimizeUi="true" --self-contained true
 
       - name: Upload Launcher
         uses: actions/upload-artifact@v3
         with:
           name: Launcher (Windows)
           path: |
-            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\
+            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\Zelda 3 Launcher.exe
 
 
 #  linux:
