@@ -33,18 +33,18 @@ jobs:
       - name: Execute unit tests
         run: dotnet test -nologo
 
-      #- name: Build Launcher
-      #  run: msbuild -nologo -v:d -clp:ForceConsoleColor -m -p:Configuration=Release -p:Platform=x64
+      - name: Build Launcher
+        run: msbuild -nologo -v:d -clp:ForceConsoleColor -m -p:Configuration=Release -p:Platform=x64
 
       - name: Publish Launcher
         run: dotnet publish -nologo -c Release /p:Platform="Any CPU" /p:OptimizeUi="true"
 
-      #- name: Upload Launcher
-      #  uses: actions/upload-artifact@v3
-      #  with:
-      #    name: Launcher (Windows)
-      #    path: |
-      #      build/TmpReleaseBuild/Mesen.exe
+      - name: Upload Launcher
+        uses: actions/upload-artifact@v3
+        with:
+          name: Launcher (Windows)
+          path: |
+            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\
 
 
 #  linux:
