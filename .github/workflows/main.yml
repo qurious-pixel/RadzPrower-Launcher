@@ -47,31 +47,31 @@ jobs:
       #      build/TmpReleaseBuild/Mesen.exe
 
 
-  linux:
-    strategy:
-      matrix:
-        os: [ubuntu-22.04, ubuntu-20.04]
-      fail-fast: false
-    runs-on: ${{ matrix.os }}
+#  linux:
+#    strategy:
+#      matrix:
+#        os: [ubuntu-22.04, ubuntu-20.04]
+#      fail-fast: false
+#    runs-on: ${{ matrix.os }}
 
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+ #   steps:
+ #     - name: Checkout repo
+ #       uses: actions/checkout@v3
+ #       with:
+ #         fetch-depth: 0
 
-      - name: Install .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: 7.x
+ #     - name: Install .NET Core
+ #       uses: actions/setup-dotnet@v3
+ #       with:
+ #         dotnet-version: 7.x
 
-      - name: Install dependencies
-        run: |
-          sudo apt-get update -qy
-          sudo apt-get install -qy libsdl2-dev
+#      - name: Install dependencies
+#        run: |
+#          sudo apt-get update -qy
+#          sudo apt-get install -qy libsdl2-dev
 
-      - name: Publish Launcher
-        run: dotnet publish -nologo -c Release -r linux-x64 /p:Platform="Any CPU" /p:OptimizeUi="true"
+#      - name: Publish Launcher
+#        run: dotnet publish -nologo -c Release -r linux-x64 /p:Platform="Any CPU" /p:OptimizeUi="true"
 
       #- name: Upload Mesen
       #  uses: actions/upload-artifact@v3
