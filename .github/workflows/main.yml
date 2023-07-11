@@ -39,15 +39,16 @@ jobs:
       - name: Publish Launcher
         run: dotnet publish -nologo -c Release /p:Platform="Any CPU" /p:OptimizeUi="true" --self-contained false
 
+      - name: Execute unit tests
+        run: mv "Zelda 3 Launcher\bin\Release\net7.0-windows\publish\runtimes\win-x64\native\*.dll" "Zelda 3 Launcher\bin\Release\net7.0-windows\publish\"
+
       - name: Upload Launcher
         uses: actions/upload-artifact@v3
         with:
           name: Launcher (Windows)
           path: |
             Zelda 3 Launcher\bin\Release\net7.0-windows\publish\Zelda 3 Launcher.exe
-            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\runtimes\win-x64\native\SDL2.dll
-            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\runtimes\win-x64\native\git2-b7bad55.dll
-
+            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\*.dll
 
 #  linux:
 #    strategy:
