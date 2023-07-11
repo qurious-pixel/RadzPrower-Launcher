@@ -34,10 +34,10 @@ jobs:
         run: dotnet test -nologo
 
       - name: Build Launcher
-        run: msbuild -nologo -v:d -clp:ForceConsoleColor -m -p:Configuration=Release -p:Platform=x64
+        run: msbuild -nologo -v:d -clp:ForceConsoleColor -m -p:Configuration=Release -p:Platform=x64 -p:PublishSingleFile=true --self-contained true
 
       - name: Publish Launcher
-        run: dotnet publish -nologo -c Release /p:Platform="Any CPU" /p:OptimizeUi="true" --self-contained true
+        run: dotnet publish -nologo -c Release /p:Platform="Any CPU" /p:OptimizeUi="true" /p:PublishSingleFile=true --self-contained true
 
       - name: Execute unit tests
         run: mv "Zelda 3 Launcher\bin\Release\net7.0-windows\publish\runtimes\win-x64\native\*.dll" "Zelda 3 Launcher\bin\Release\net7.0-windows\publish\"
