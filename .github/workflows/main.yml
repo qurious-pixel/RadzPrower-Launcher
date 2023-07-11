@@ -44,7 +44,8 @@ jobs:
         with:
           name: Launcher (Windows)
           path: |
-            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\
+            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\Zelda 3 Launcher.exe
+            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\runtimes\win-x64\native\*.dll
 
 
 #  linux:
