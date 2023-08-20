@@ -9,72 +9,33 @@ env:
   DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
 
 jobs:
-  windows:
+  linux:
     strategy:
+      matrix:
+        os: [ubuntu-22.04, ubuntu-20.04]
       fail-fast: false
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+     - name: Checkout repo
+       uses: actions/checkout@v3
+       with:
+         repository: id-Software/quake2-rerelease-dll
+         ref: main
+         fetch-depth: 0
 
-      - name: Install .NET Core
-        uses: actions/setup-dotnet@v3
-        with:
+     - name: Install .NET Core
+       uses: actions/setup-dotnet@v3
+       with:
           dotnet-version: 7.x
 
-      - name: Setup MSBuild.exe
-        uses: microsoft/setup-msbuild@v1.1
-        with:
-          msbuild-architecture: x64
+     - name: Install dependencies
+       run: |
+          sudo apt-get update -qy
+          sudo apt-get install -qy libsdl2-dev libfmt-dev libjsoncpp-dev
 
-      - name: Execute unit tests
-        run: dotnet test -nologo
-
-      - name: Build Launcher
-        run: msbuild -nologo -v:d -clp:ForceConsoleColor -m -p:Configuration=Release -p:Platform=x64 -p:PublishSingleFile=true --self-contained true
-
-      - name: Publish Launcher
-        run: dotnet publish -nologo -c Release /p:Platform="Any CPU" /p:OptimizeUi="true" /p:PublishSingleFile=true --self-contained true
-
-      - name: Execute unit tests
-        run: mv "Zelda 3 Launcher\bin\Release\net7.0-windows\publish\runtimes\win-x64\native\*.dll" "Zelda 3 Launcher\bin\Release\net7.0-windows\publish\"
-
-      - name: Upload Launcher
-        uses: actions/upload-artifact@v3
-        with:
-          name: Launcher (Windows)
-          path: |
-            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\Zelda 3 Launcher.exe
-            Zelda 3 Launcher\bin\Release\net7.0-windows\publish\*.dll
-
-#  linux:
-#    strategy:
-#      matrix:
-#        os: [ubuntu-22.04, ubuntu-20.04]
-#      fail-fast: false
-#    runs-on: ${{ matrix.os }}
-
- #   steps:
- #     - name: Checkout repo
- #       uses: actions/checkout@v3
- #       with:
- #         fetch-depth: 0
-
- #     - name: Install .NET Core
- #       uses: actions/setup-dotnet@v3
- #       with:
- #         dotnet-version: 7.x
-
-#      - name: Install dependencies
-#        run: |
-#          sudo apt-get update -qy
-#          sudo apt-get install -qy libsdl2-dev
-
-#      - name: Publish Launcher
-#        run: dotnet publish -nologo -c Release -r linux-x64 /p:Platform="Any CPU" /p:OptimizeUi="true"
+     - name: Publish Launcher
+       run: dotnet publish -nologo -c Release -r linux-x64 /p:Platform="Any CPU" /p:OptimizeUi="true"
 
       #- name: Upload Mesen
       #  uses: actions/upload-artifact@v3
