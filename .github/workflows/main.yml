@@ -35,7 +35,10 @@ jobs:
           sudo apt-get install -qy libsdl2-dev libfmt-dev libjsoncpp-dev
 
      - name: Publish Launcher
-       run: dotnet publish -nologo -c Release -r linux-x64 /p:Platform="Any CPU" /p:OptimizeUi="true"
+       run: |
+         cd rerelease
+         ls -al
+         dotnet publish -nologo -c Release -r linux-x64 /p:Platform="Any CPU" /p:OptimizeUi="true"
 
       #- name: Upload Mesen
       #  uses: actions/upload-artifact@v3
